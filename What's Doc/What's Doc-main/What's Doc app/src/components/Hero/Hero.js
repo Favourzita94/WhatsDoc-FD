@@ -4,6 +4,7 @@ import styles from "./hero3.module.css";
 import logo from "../images/logo.jpg";
 import Signup from "../Signup";
 import Login from "../Login";
+import FileUpload from "../FileUpload";
 
 
 const Hero = () => {
@@ -74,6 +75,16 @@ const Hero = () => {
             onClick={() => setLoginModal(true)}
           >
             Login
+          </button>
+          <br />
+          <br />
+          <p>To Upload Your lab test results</p>
+          <button
+            style={{ cursor: "pointer" }}
+            type="button"
+            onClick={FileUpload}
+          >
+            Click here
           </button>
         </div>
         <div className={styles.heroImg}>

@@ -49,34 +49,13 @@ const Appointment = ({ modal, toggle, save, userData }) => {
     save(taskObj);
   };
 
-  // useEffect(() => {
-  //   first
-
-  //   return () => {
-  //     second
-  //   }
-  // }, [third])
-
-  //  useEffect(() => {
-  //    const savedTaskList = JSON.parse(localStorage.getItem("taskList")) || [];
-  //    setTaskList(savedTaskList);
-  //  }, []);
-
-  //  const tileClassName = ({ date }) => {
-  //     const taskDates = taskList.flatMap((task) => task.Dates);
-  //     const taskDateStrings = taskDates.map((taskDate) => taskDate.toDateString());
-  //     const dateString = date.toDateString();
-
-  //     if (taskDateStrings.includes(dateString)) {
-  //       return 'highlight';
-  //     }
   return (
     <>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Schedule Appointment</ModalHeader>
         <ModalBody>
           <div className="form-group">
-            <label>Schedule Appointment</label>
+            <label>Doctor's Name</label>
             <input
               type="text"
               className="form-control"

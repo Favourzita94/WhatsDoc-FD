@@ -8,7 +8,6 @@ import styles from './footer.module.css';
 
 export default function Footer() {
 	// footer component for external pages
-
 	return (
     <div className={styles.footerContainer} id="contactus">
       <div className={styles.socialslogo}>
@@ -42,7 +41,7 @@ export default function Footer() {
         </div>
 
         <div className={styles.devAsk}>
-          <p>More on ShedulePro</p>
+          <p>More on What's Doc</p>
           <Link to="/coming" className={styles.link}>
             Privacy Policy
           </Link>

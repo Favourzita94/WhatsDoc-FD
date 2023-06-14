@@ -9,6 +9,9 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import AppointmentList from "./components/AppointmentList";
 import Coming from "./components/Coming";
+import FileUpload from "./components/FileUpload";
+import Prescription from "./components/Prescription";
+import ReviewRating from "./components/ReviewRating";
 // import { createBrowserHistory } from "history";
 
 
@@ -23,6 +26,9 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/coming" element={<Coming />} />
+        <Route path="/fileupload" element={<FileUpload />} />
+        <Route path="/prescription" element={<Prescription />} />
+        <Route path="/reviewrating" element={<ReviewRating />} />
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </Router>
