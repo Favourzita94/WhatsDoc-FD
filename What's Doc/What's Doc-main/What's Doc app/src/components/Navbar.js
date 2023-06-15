@@ -34,6 +34,12 @@ const Navbar = () => {
               <a class="nav-link mx-5" href="#contactus">
                 Contact Us
               </a>
+              <a class="nav-link mx-5" href="prescription">Prescription
+              </a>
+              <a class="nav-link mx-5" href="reviewrating">
+                Other Menu
+              </a>
+              
             </div>
           </div>
         </div>

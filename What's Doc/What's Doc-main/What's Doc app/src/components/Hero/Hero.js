@@ -6,6 +6,7 @@ import Signup from "../Signup";
 import Login from "../Login";
 
 
+
 const Hero = () => {
   const navigate = useNavigate();
 
@@ -46,7 +47,9 @@ const Hero = () => {
     } else {
       alert("No user data found. Please sign up to continue.");
     }};
-
+    const handleButtonClick = () => {
+      navigate("/fileupload");
+    };
   return (
     <div className={styles.herosect} style={{ padding: "30px" }} id='hero'>
       <div className={styles.hero}>
@@ -75,6 +78,16 @@ const Hero = () => {
           >
             Login
           </button>
+          <br />
+          <br />
+          <p>To Upload Your lab test results</p>
+          <button
+              style={{ cursor: "pointer" }}
+              type="button"
+              onClick={handleButtonClick}
+          >
+            Click here
+        </button>
         </div>
         <div className={styles.heroImg}>
           <img src={logo} alt="LandingHero" />
