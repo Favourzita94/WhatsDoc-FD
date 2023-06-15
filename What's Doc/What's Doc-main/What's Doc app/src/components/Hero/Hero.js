@@ -4,7 +4,7 @@ import styles from "./hero3.module.css";
 import logo from "../images/logo.jpg";
 import Signup from "../Signup";
 import Login from "../Login";
-import FileUpload from "../FileUpload";
+
 
 
 const Hero = () => {
@@ -47,7 +47,9 @@ const Hero = () => {
     } else {
       alert("No user data found. Please sign up to continue.");
     }};
-
+    const handleButtonClick = () => {
+      navigate("/fileupload");
+    };
   return (
     <div className={styles.herosect} style={{ padding: "30px" }} id='hero'>
       <div className={styles.hero}>
@@ -80,12 +82,12 @@ const Hero = () => {
           <br />
           <p>To Upload Your lab test results</p>
           <button
-            style={{ cursor: "pointer" }}
-            type="button"
-            onClick={FileUpload}
+              style={{ cursor: "pointer" }}
+              type="button"
+              onClick={handleButtonClick}
           >
             Click here
-          </button>
+        </button>
         </div>
         <div className={styles.heroImg}>
           <img src={logo} alt="LandingHero" />
