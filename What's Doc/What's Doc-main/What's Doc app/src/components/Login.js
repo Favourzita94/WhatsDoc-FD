@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import axios from "axios";
 
 
 const Login = ({ modal, toggle, login, userData }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [email, setEmail] = useState("");
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    if (name === "email") {
-      setEmail(value);
+    if (name === "username") {
+      setUsername(value);
     } else {
       setPassword(value);
     }
@@ -19,9 +21,15 @@ const Login = ({ modal, toggle, login, userData }) => {
   const handleLogin = (e) => {
     e.preventDefault();
     let userData = {};
-    userData["email"] = email;
+    userData["username"] = username;
     userData["password"] = password;
-    login(userData);
+
+    axios
+    .post("http://localhost:8000/api/login/", {username, password})
+    .then((res) => console.log(res.data))
+    .catch((err) => console.log(JSON.stringify(err)));
+
+    // login(userData);
   };
 //  const onFinish = (values) => {
 //    const templateParams = {
@@ -60,15 +68,15 @@ const Login = ({ modal, toggle, login, userData }) => {
     <Modal isOpen={modal} toggle={toggle}>
       <ModalHeader toggle={toggle}>Login</ModalHeader>
       <ModalBody>
-        <form action="">
+        <form action="POST">
           <div className="form-group">
-            <label>Email</label>
+            <label>Username</label>
             <input
-              type="email"
+              type="text"
               className="form-control"
-              value={email}
+              // value={username}
               onChange={handleChange}
-              name="email"
+              name="username"
             />
           </div>
           <div className="form-group">
@@ -76,7 +84,7 @@ const Login = ({ modal, toggle, login, userData }) => {
             <input
               type="password"
               className="form-control"
-              value={password}
+              // value={password}
               onChange={handleChange}
               name="password"
             />
