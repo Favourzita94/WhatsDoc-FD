@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import styles from './prescription.module.css';
 
 const Prescription = () => {
   const [prescriptions, setPrescriptions] = useState([]);
@@ -11,6 +13,7 @@ const Prescription = () => {
   const [notes, setNotes] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPrescriptions = async () => {
@@ -23,6 +26,9 @@ const Prescription = () => {
     };
     fetchPrescriptions();
   }, []);
+  const handleHome = () => {
+    navigate('/');
+  };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -66,9 +72,9 @@ const Prescription = () => {
   const sortedPrescriptions = prescriptions.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 
   return (
-    <div>
-      <h2>Prescription Management</h2>
-      <div>
+    <div className={styles.prescriptionContainer}>
+      <h2 className={styles.prescriptionTitle}>Prescription Management</h2>
+      <div className={styles.createPrescription}>
         <h3>Create Prescription</h3>
         <form onSubmit={handleFormSubmit}>
           <label>
@@ -95,16 +101,16 @@ const Prescription = () => {
             Notes:
             <textarea value={notes} onChange={(e) => setNotes(e.target.value)} />
           </label>
-          {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-          {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
-          <button type="submit">Create Prescription</button>
+          {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+          {successMessage && <p className={styles.successMessage}>{successMessage}</p>}
+          <button type="submit" className={styles.createButton}>Create Prescription</button>
         </form>
       </div>
-      <div>
+      <div className={styles.prescriptionListing}>
         <h3>Prescription Listing</h3>
-        <ul>
+        <ul className={styles.prescriptionList}>
           {sortedPrescriptions.map((prescription) => (
-            <li key={prescription.id}>
+            <li key={prescription.id} className={styles.prescriptionItem}>
               <h4>Patient: {prescription.patientName}</h4>
               <p>Medication: {prescription.medication}</p>
               <p>Dosage: {prescription.dosage}</p>
@@ -114,6 +120,9 @@ const Prescription = () => {
             </li>
           ))}
         </ul>
+        <button className="homeButton" onClick={handleHome}>
+          Log Out
+     </button>
       </div>
     </div>
   );

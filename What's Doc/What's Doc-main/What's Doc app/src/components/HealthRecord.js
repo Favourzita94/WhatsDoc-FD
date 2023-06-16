@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import EditTask from '../modals/EditTask'
+import EditAppointment from '../modals/EditAppointment'
 
-const Card = ({taskObj, index, deleteTask, updateListArray, isDone}) => {
+const HealthRecord = ({taskObj, index, deleteTask, updateListArray, isDone}) => {
   // console.log(JSON.stringify(taskObj.Date))
     const [modal, setModal] = useState(false);
     const colors = [
@@ -63,9 +63,9 @@ const Card = ({taskObj, index, deleteTask, updateListArray, isDone}) => {
             {taskObj.Name}
           </span>
           <p className="mt-3">{taskObj.Description}</p>
-          <h5 className="mt-3">{JSON.stringify(taskObj.Date).slice(1,11)
+          {/* <h5 className="mt-3">{JSON.stringify(taskObj.Date).slice(1,11)
           
-          }</h5>
+          }</h5> */}
 
           <div style={{ position: "absolute", right: "20px", bottom: "20px" }}>
             <i
@@ -87,7 +87,7 @@ const Card = ({taskObj, index, deleteTask, updateListArray, isDone}) => {
             ></i>
           </div>
         </div>
-        <EditTask
+        <EditAppointment
           modal={modal}
           toggle={toggle}
           updateTask={updateTask}
@@ -97,4 +97,4 @@ const Card = ({taskObj, index, deleteTask, updateListArray, isDone}) => {
     );
 };
 
-export default Card;
+export default HealthRecord;

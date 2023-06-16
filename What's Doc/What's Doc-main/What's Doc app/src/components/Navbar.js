@@ -37,7 +37,7 @@ const Navbar = () => {
               <a class="nav-link mx-5" href="prescription">Prescription
               </a>
               <a class="nav-link mx-5" href="reviewrating">
-                Other Menu
+                Reviews
               </a>
               
             </div>

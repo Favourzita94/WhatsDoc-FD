@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Appointment from "../modals/Appointment";
+import HealthRecord from "./HealthRecord";
 import Sidebar from "./Sidebar";
 import "../App.css";
 
@@ -17,6 +18,22 @@ const AppointmentList = ({ selectedDate }) => {
       setTaskList(obj);
     } 
   }, []);
+  const deleteTask = (index) => {
+    let tempList = taskList;
+    tempList.splice(index, 1);
+    localStorage.setItem("taskList", JSON.stringify(tempList));
+    setTaskList(tempList);
+    window.location.reload();
+  };
+
+  const updateListArray = (obj, index) => {
+    let tempList = taskList;
+    tempList[index] = obj;
+    localStorage.setItem("taskList", JSON.stringify(tempList));
+    setTaskList(tempList);
+    window.location.reload();
+  };
+
 
   const toggle = () => {
     setModal(!modal);
@@ -47,10 +64,10 @@ const AppointmentList = ({ selectedDate }) => {
               Schedule your Appointment
             </button>
           </div>
-          {/* <div className="task-container" id="tasks">
+          <div className="task-container" id="tasks">
             {taskList &&
               taskList.map((obj, index) => (
-                <Card
+                <HealthRecord
                   taskObj={obj}
                   index={index}
                   key={index}
@@ -59,7 +76,7 @@ const AppointmentList = ({ selectedDate }) => {
                   updateListArray={updateListArray}
                 />
               ))}
-          </div> */}
+          </div>
 
           <Appointment
             toggle={toggle}
