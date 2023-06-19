@@ -4,6 +4,7 @@ import styles from "./hero3.module.css";
 import logo from "../images/logo.jpg";
 import Signup from "../Signup";
 import Login from "../Login";
+import axios from "axios";
 
 
 
@@ -30,23 +31,34 @@ const Hero = () => {
   };
 
   const loginUser = (userObj) => {
-    const storedUsers = JSON.parse(localStorage.getItem("userList"));
-    if (storedUsers) {
-      const storedUser = storedUsers.find(
-        (user) =>
-          user.email === userObj.email && user.password === userObj.password
-      );
-      if (storedUser) {
-        console.log("Login successful!");
-        setLoginModal(false);
-        navigate('/appointmentlist');
-      }
-      else {
-        alert("Invalid credentials");
-      }
-    } else {
-      alert("No user data found. Please sign up to continue.");
-    }};
+    axios
+    .get("http://localhost:8000/users/")
+    .then((res) => { 
+      const users = res.data;
+
+      if (users) {
+        console.log(users)
+        const storedUser = users.find(
+          (user) =>
+            user.username === userObj.username
+        );
+        if (storedUser) {
+          console.log("Login successful!");
+          setLoginModal(false);
+          navigate('/appointmentlist');
+        }
+        else {
+          alert("Invalid credentials");
+        }
+      } else {
+        alert("No user data found. Please sign up to continue.");
+      };
+    })
+    .catch((err) => console.log(JSON.stringify(err)))
+  };
+    
+    // const storedUsers = JSON.parse(localStorage.getItem("userList"));
+
     const handleButtonClick = () => {
       navigate("/fileupload");
     };

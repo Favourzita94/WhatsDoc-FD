@@ -26,10 +26,14 @@ const Login = ({ modal, toggle, login, userData }) => {
 
     axios
     .post("http://localhost:8000/api/login/", {username, password})
-    .then((res) => console.log(res.data))
+    .then((res) => {
+      const auth_token = res.data["token"]
+      console.log(auth_token)
+      localStorage.setItem('auth_token', auth_token)
+    })
     .catch((err) => console.log(JSON.stringify(err)));
-
-    // login(userData);
+    
+    login(userData);
   };
 //  const onFinish = (values) => {
 //    const templateParams = {
