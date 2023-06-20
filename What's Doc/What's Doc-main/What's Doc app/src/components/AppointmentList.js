@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Appointment from "../modals/Appointment";
 import Sidebar from "./Sidebar";
 import "../App.css";
+import axios from "axios";
 
 
 const AppointmentList = ({ selectedDate }) => {
@@ -10,12 +11,25 @@ const AppointmentList = ({ selectedDate }) => {
   // const [isDone, setIsDone] = useState(false)
 
   useEffect(() => {
-    let arr = localStorage.getItem("taskList");
+    const auth_token = localStorage.getItem('auth_token');
 
-    if (arr) {
-      let obj = JSON.parse(arr);
-      setTaskList(obj);
-    } 
+    axios
+    .get('http://localhost:8000/users/appointments/', {
+      headers: {
+        Authorization: `Token ${auth_token}`,
+      },
+    })
+    .then((res) => {
+      const tasks = res.data;
+      setTaskList(tasks)
+    })
+    .catch((err) => console.log(JSON.stringify(err)))
+    // let arr = localStorage.getItem("taskList");
+
+    // if (arr) {
+    //   let obj = JSON.parse(arr);
+    //   setTaskList(obj);
+    // } 
   }, []);
 
   const toggle = () => {
@@ -47,19 +61,24 @@ const AppointmentList = ({ selectedDate }) => {
               Schedule your Appointment
             </button>
           </div>
-          {/* <div className="task-container" id="tasks">
-            {taskList &&
-              taskList.map((obj, index) => (
-                <Card
-                  taskObj={obj}
-                  index={index}
-                  key={index}
-                  // isdone={isDone}
-                  deleteTask={deleteTask}
-                  updateListArray={updateListArray}
-                />
-              ))}
-          </div> */}
+          <div className="task-container" id="tasks">
+            <ul>
+              {taskList &&
+                taskList.map((item, index) => (
+                  <li
+                    // taskObj={obj}
+                    // index={index}
+                    key={index}
+                    // isdone={isDone}
+                    // deleteTask={deleteTask}
+                    // updateListArray={updateListArray}
+                  >
+                    <h3>{ item.name } | { item.meeting_link }</h3>
+                  </li>
+                  
+                ))}
+              </ul>
+          </div>
 
           <Appointment
             toggle={toggle}

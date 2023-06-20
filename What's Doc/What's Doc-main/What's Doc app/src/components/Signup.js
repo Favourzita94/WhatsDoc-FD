@@ -3,6 +3,8 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 const Signup = ({ modal, toggle, save }) => {
   const [username, setUsername] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -11,9 +13,13 @@ const Signup = ({ modal, toggle, save }) => {
 
     if (name === "username") {
       setUsername(value);
+    } else if (name === "first_name") {
+      setFirstName(value)
+    } else if (name === "last_name") {
+      setLastName(value)
     } else if (name === 'email') {
       setEmail(value);
-    }
+    } 
     else {
         setPassword(value)
     }
@@ -23,8 +29,14 @@ const Signup = ({ modal, toggle, save }) => {
     e.preventDefault();
     let userData = {};
     userData["username"] = username;
-    userData["email"] = email;
+    userData["first_name"] = firstName;
+    userData["last_name"] = lastName;
     userData["password"] = password;
+    userData["email"] = email;
+    userData["is_staff"] = false;
+    userData["is_patient"] = true;
+    userData["is_doctor"] = false;
+
     save(userData);
   };
 
@@ -42,6 +54,26 @@ const Signup = ({ modal, toggle, save }) => {
             value={username}
             onChange={handleChange}
             name="username"
+          />
+        </div>
+        <div className="form-group">
+          <label>First Name</label>
+          <input
+            type="text"
+            className="form-control"
+            value={firstName}
+            onChange={handleChange}
+            name="first_name"
+          />
+        </div>
+        <div className="form-group">
+          <label>Last Name</label>
+          <input
+            type="text"
+            className="form-control"
+            value={lastName}
+            onChange={handleChange}
+            name="last_name"
           />
         </div>
         <div className="form-group">

@@ -13,7 +13,7 @@ const Hero = () => {
 
   const [signupModal, setSignupModal] = useState(false);
   const [loginModal, setLoginModal] = useState(false);
-  const [userList, setUserList] = useState([]);
+  // const [userList, setUserList] = useState([]);
 
   const toggleSignup = () => {
     setSignupModal(!signupModal);
@@ -23,10 +23,14 @@ const Hero = () => {
   };
 
   const saveUser = (userObj) => {
-    let tempList = userList;
-    tempList.push(userObj);
-    localStorage.setItem("userList", JSON.stringify(tempList));
-    setUserList(userList);
+    axios
+    .post('http://localhost:8000/users/', userObj)
+    .then((res) => console.log(res.data['message']))
+    .catch((err) => console.log(JSON.stringify(err)))
+    // let tempList = userList;
+    // tempList.push(userObj);
+    // localStorage.setItem("userList", JSON.stringify(tempList));
+    // setUserList(userList);
     setSignupModal(false);
   };
 
