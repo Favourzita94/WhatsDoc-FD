@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Appointment from "../modals/Appointment";
-import HealthRecord from "./HealthRecord";
 import Sidebar from "./Sidebar";
 import "../App.css";
+import axios from "axios";
 
 
 const AppointmentList = ({ selectedDate }) => {
@@ -11,29 +11,26 @@ const AppointmentList = ({ selectedDate }) => {
   // const [isDone, setIsDone] = useState(false)
 
   useEffect(() => {
-    let arr = localStorage.getItem("taskList");
+    const auth_token = localStorage.getItem('auth_token');
 
-    if (arr) {
-      let obj = JSON.parse(arr);
-      setTaskList(obj);
-    } 
+    axios
+    .get('http://localhost:8000/users/appointments/', {
+      headers: {
+        Authorization: `Token ${auth_token}`,
+      },
+    })
+    .then((res) => {
+      const tasks = res.data;
+      setTaskList(tasks)
+    })
+    .catch((err) => console.log(JSON.stringify(err)))
+    // let arr = localStorage.getItem("taskList");
+
+    // if (arr) {
+    //   let obj = JSON.parse(arr);
+    //   setTaskList(obj);
+    // } 
   }, []);
-  const deleteTask = (index) => {
-    let tempList = taskList;
-    tempList.splice(index, 1);
-    localStorage.setItem("taskList", JSON.stringify(tempList));
-    setTaskList(tempList);
-    window.location.reload();
-  };
-
-  const updateListArray = (obj, index) => {
-    let tempList = taskList;
-    tempList[index] = obj;
-    localStorage.setItem("taskList", JSON.stringify(tempList));
-    setTaskList(tempList);
-    window.location.reload();
-  };
-
 
   const toggle = () => {
     setModal(!modal);
@@ -65,17 +62,22 @@ const AppointmentList = ({ selectedDate }) => {
             </button>
           </div>
           <div className="task-container" id="tasks">
-            {taskList &&
-              taskList.map((obj, index) => (
-                <HealthRecord
-                  taskObj={obj}
-                  index={index}
-                  key={index}
-                  // isdone={isDone}
-                  deleteTask={deleteTask}
-                  updateListArray={updateListArray}
-                />
-              ))}
+            <ul>
+              {taskList &&
+                taskList.map((item, index) => (
+                  <li
+                    // taskObj={obj}
+                    // index={index}
+                    key={index}
+                    // isdone={isDone}
+                    // deleteTask={deleteTask}
+                    // updateListArray={updateListArray}
+                  >
+                    <h3>{ item.name } | { item.meeting_link }</h3>
+                  </li>
+                  
+                ))}
+              </ul>
           </div>
 
           <Appointment
